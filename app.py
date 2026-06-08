@@ -35,9 +35,23 @@ LOOK_BACK = 14
 # =========================
 # LOAD MODEL / SCALER / DATA
 # =========================
+class SafeDense(Dense):
+    def __init__(self, **kwargs):
+        kwargs.pop('quantization_config', None)
+        super().__init__(**kwargs)
+
+class SafeLSTM(LSTM):
+    def __init__(self, **kwargs):
+        kwargs.pop('quantization_config', None)
+        super().__init__(**kwargs)
+
 @st.cache_resource
 def load_assets():
-    model = load_model(MODEL_PATH, compile=False)
+    custom_objs = {
+        'Dense': SafeDense,
+        'LSTM': SafeLSTM
+    }
+    model = load_model(MODEL_PATH, compile=False, custom_objects=custom_objs)
     scaler = joblib.load(SCALER_PATH)
     return model, scaler
 
