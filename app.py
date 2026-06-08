@@ -1,4 +1,5 @@
-
+import os
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -35,7 +36,7 @@ LOOK_BACK = 14
 # =========================
 @st.cache_resource
 def load_assets():
-    model = load_model(MODEL_PATH)
+    model = load_model(MODEL_PATH, compile=False)
     scaler = joblib.load(SCALER_PATH)
     return model, scaler
 
