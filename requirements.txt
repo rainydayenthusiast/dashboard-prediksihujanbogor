@@ -1,8 +1,8 @@
 streamlit
 pandas
-numpy
+numpy<2.0.0
 joblib
 plotly
-pillow
+Pillow
 tensorflow-cpu
 scikit-learn
