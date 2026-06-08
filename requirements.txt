@@ -7,3 +7,4 @@ pillow
 h5py
 tensorflow-cpu
 scikit-learn
+openpyxl
